@@ -19,15 +19,51 @@ public class ControleSousMarin : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    void OnDeplacement(InputValue directionBase)
+    void OnDeplacement_Y(InputValue directionBase)
     {
         Vector3 directionAvecVitesse = directionBase.Get<Vector3>() * vitesseSousMarin;
-        directionInput = new Vector3(0f, directionAvecVitesse.y, directionAvecVitesse.z);
-        _animator.SetFloat("Deplacement", directionInput.magnitude);
+        directionInput = new Vector3(0f, directionAvecVitesse.y, 0f);
+        if(directionAvecVitesse.y > 0f)
+        {
+            _animator.SetFloat("Deplacement.Y", directionInput.magnitude);
+        }
         
+        else if (directionAvecVitesse.y < 0f)
+        {
+            _animator.SetFloat("Deplacement.Y", -directionInput.magnitude);
+        }
+        else
+        {
+            _animator.SetFloat("Deplacement.Y", directionInput.magnitude);
+        }
     }
 
-    // Update is called once per frame
+    void OnDeplacement_Z(InputValue directionBase)
+    {
+        Vector3 directionAvecVitesse = directionBase.Get<Vector3>() * vitesseSousMarin;
+        directionInput = new Vector3(0f, 0f, directionAvecVitesse.z);
+        if (directionAvecVitesse.z > 0f)
+        {
+            _animator.SetFloat("Deplacement.Z", directionInput.magnitude);
+        }
+
+        else if (directionAvecVitesse.z < 0f)
+        {
+            _animator.SetFloat("Deplacement.Z", -directionInput.magnitude);
+        }
+        else
+        {
+            _animator.SetFloat("Deplacement.Z", directionInput.magnitude);
+        }
+    }
+
+    void OnBoost()
+    {
+       Vector3 boost = directionInput;
+        _rb.AddForce(boost, ForceMode.VelocityChange);
+    }
+
+   
     void FixedUpdate()
     { 
         Vector3 mouvement = directionInput;

@@ -1734,6 +1734,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 96364357229bf9f40ba658a71f3bc7d4, type: 2}
+    - target: {fileID: 7165430295591806332, guid: 20c0aa25022fd474ebac164d517acaa3,
+        type: 3}
+      propertyPath: m_Drag
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8298684462619277302, guid: 20c0aa25022fd474ebac164d517acaa3,
         type: 3}
       propertyPath: m_Name
@@ -1828,7 +1833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cde44d63375d142a5f0909a1058886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitesseSousMarin: 0.5
+  vitesseSousMarin: 0.3
 --- !u!114 &8632670369948054856
 MonoBehaviour:
   m_ObjectHideFlags: 0
