@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class ControleSousMarin : MonoBehaviour
 {
-    [SerializeField] private float vitesseSousMarin;
+    [SerializeField] private float _vitesseSousMarin;
     private Rigidbody _rb;
     private Vector3 directionInput;
 
@@ -19,34 +19,32 @@ public class ControleSousMarin : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    void OnDeplacement_Y(InputValue directionBase)
+    void OnDeplacement(InputValue directionBase)
     {
-        Vector3 directionAvecVitesse = directionBase.Get<Vector3>() * vitesseSousMarin;
-        directionInput = new Vector3(0f, directionAvecVitesse.y, 0f);
-        if(directionAvecVitesse.y > 0f)
+        Vector3 directionAvecVitesse = directionBase.Get<Vector3>() * _vitesseSousMarin;
+        directionInput = new Vector3(0f, directionAvecVitesse.y, directionAvecVitesse.z);
+
+        if (directionAvecVitesse.y > 0f)
         {
             _animator.SetFloat("Deplacement.Y", directionInput.magnitude);
-            Debug.Log("Avance!");
+            Debug.Log("En Haut!");
 
         }
 
         else if (directionAvecVitesse.y < 0f)
         {
             _animator.SetFloat("Deplacement.Y", -directionInput.magnitude);
-            Debug.Log("Recule!");
+            Debug.Log("En Bas!");
         }
-        else
+       
+        else if (directionAvecVitesse.y == 0f)
         {
             _animator.SetFloat("Deplacement.Y", directionInput.magnitude);
             Debug.Log("Repos");
         }
-    }
 
-    void OnDeplacement_Z(InputValue directionBase)
-    {
-        Vector3 directionAvecVitesse = directionBase.Get<Vector3>() * vitesseSousMarin;
-        directionInput = new Vector3(0f, 0f, directionAvecVitesse.z);
-        if (directionAvecVitesse.z > 0f)
+
+        else if (directionAvecVitesse.z > 0f)
         {
             _animator.SetFloat("Deplacement.Z", directionInput.magnitude);
             Debug.Log("Avance!");
@@ -57,28 +55,33 @@ public class ControleSousMarin : MonoBehaviour
             _animator.SetFloat("Deplacement.Z", -directionInput.magnitude);
             Debug.Log("Recule!");
         }
-        else
+       
+
+        else if (directionAvecVitesse.z == 0f)
         {
             _animator.SetFloat("Deplacement.Z", directionInput.magnitude);
             Debug.Log("Repos");
         }
     }
 
-    void OnBoost()
+    void OnBoost(InputValue etatBouton)
     {
-       Vector3 boost = directionInput;
-        _rb.AddForce(boost, ForceMode.VelocityChange);
-        Debug.Log("Boost!!");
+        if(etatBouton.isPressed){
+            _vitesseSousMarin = 1f;
+            Debug.Log("Boost!!");
+        }
+        else{
+            _vitesseSousMarin = 0.5f;
+            Debug.Log("No boost");
+        }
+       
     }
 
    
     void FixedUpdate()
-    { 
-        Vector3 mouvement = directionInput;
-        
-        if (directionInput.magnitude > 0f)
-        {
-            _rb.AddForce(mouvement, ForceMode.VelocityChange);
-        }   
+    {
+        Vector3 movement = directionInput;
+        _rb.AddForce(movement, ForceMode.VelocityChange);
+     
     }
 }
