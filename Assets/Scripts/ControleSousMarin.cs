@@ -37,13 +37,6 @@ public class ControleSousMarin : MonoBehaviour
             Debug.Log("En Bas!");
         }
        
-        else if (directionAvecVitesse.y == 0f)
-        {
-            _animator.SetFloat("Deplacement.Y", directionInput.magnitude);
-            Debug.Log("Repos");
-        }
-
-
         else if (directionAvecVitesse.z > 0f)
         {
             _animator.SetFloat("Deplacement.Z", directionInput.magnitude);
@@ -55,13 +48,15 @@ public class ControleSousMarin : MonoBehaviour
             _animator.SetFloat("Deplacement.Z", -directionInput.magnitude);
             Debug.Log("Recule!");
         }
-       
 
-        else if (directionAvecVitesse.z == 0f)
+        else if (directionAvecVitesse.y == 0f && directionAvecVitesse.z == 0f)
         {
-            _animator.SetFloat("Deplacement.Z", directionInput.magnitude);
+            _animator.SetFloat("Deplacement.Y", directionInput.magnitude);
+            _animator.SetFloat("Deplacement.Z", -directionInput.magnitude);
+           
             Debug.Log("Repos");
         }
+        
     }
 
     void OnBoost(InputValue etatBouton)
@@ -80,7 +75,7 @@ public class ControleSousMarin : MonoBehaviour
    
     void FixedUpdate()
     {
-        Vector3 movement = directionInput;
+        Vector3 movement = directionInput * _vitesseSousMarin;
         _rb.AddForce(movement, ForceMode.VelocityChange);
      
     }
