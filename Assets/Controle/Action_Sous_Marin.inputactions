@@ -20,7 +20,7 @@
                     "id": "f645002b-4866-4527-b308-d14b0ec2ff4c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 }
             ],
@@ -84,7 +84,7 @@
                     "name": "",
                     "id": "5ba5ac5e-12b7-4b63-80e3-94cfb383b622",
                     "path": "<Keyboard>/shift",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Boost",
