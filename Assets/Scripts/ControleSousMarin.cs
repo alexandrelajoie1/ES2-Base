@@ -49,10 +49,10 @@ public class ControleSousMarin : MonoBehaviour
             Debug.Log("Recule!");
         }
 
-        else if (directionAvecVitesse.y == 0f && directionAvecVitesse.z == 0f)
+        else if (directionAvecVitesse.y == 0f || directionAvecVitesse.z == 0f)
         {
             _animator.SetFloat("Deplacement.Y", directionInput.magnitude);
-            _animator.SetFloat("Deplacement.Z", -directionInput.magnitude);
+            _animator.SetFloat("Deplacement.Z", directionInput.magnitude);
            
             Debug.Log("Repos");
         }
